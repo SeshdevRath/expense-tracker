@@ -1,6 +1,8 @@
+com/eta/controllers/ErrorHandler.class
 com/eta/dto/User.class
 com/eta/repositories/UserRepository.class
 com/eta/ExpenseTrackerApplication.class
+com/eta/exceptions/ApplicationError.class
 com/eta/controllers/UserResourceController.class
 com/eta/services/UserServiceImplementation.class
 com/eta/repositories/UserRepositoryImplementation.class

@@ -18,7 +18,13 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User validateUser(String email, String password) throws EtAuthException {
-        return null;
+
+        if (email != null) {
+            email = email.toLowerCase();
+        }
+
+        User user = userRepository.findByEmailAndPassword(email, password);
+        return user;
     }
 
     @Override
