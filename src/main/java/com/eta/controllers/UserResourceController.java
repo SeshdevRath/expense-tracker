@@ -20,6 +20,18 @@ public class UserResourceController {
     @Autowired
     UserService userService;
 
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> loginUser(@RequestBody Map<String, Object> userMap) {
+        String email = (String) userMap.get("email");
+        String password = (String) userMap.get("password");
+
+        User user = userService.validateUser(email, password);
+        Map<String, String> responseMap = new HashMap<>();
+        responseMap.put("message", "Logged in successfully");
+
+        return new ResponseEntity<>(responseMap, HttpStatus.OK);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> usrMap) {
         String firstName = (String) usrMap.get("firstName");
