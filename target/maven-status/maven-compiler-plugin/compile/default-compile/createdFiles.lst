@@ -1,10 +1,13 @@
+com/eta/controllers/CategoryResourceController.class
 com/eta/controllers/ErrorHandler.class
 com/eta/dto/User.class
 com/eta/repositories/UserRepository.class
 com/eta/ExpenseTrackerApplication.class
 com/eta/exceptions/ApplicationError.class
+com/eta/exceptions/EtAuthException.class
+com/eta/Constants.class
+com/eta/interceptors/AuthInterceptor.class
 com/eta/controllers/UserResourceController.class
 com/eta/services/UserServiceImplementation.class
 com/eta/repositories/UserRepositoryImplementation.class
 com/eta/services/UserService.class
-com/eta/exceptions/EtAuthException.class
