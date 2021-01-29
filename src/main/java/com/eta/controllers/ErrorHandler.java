@@ -1,6 +1,6 @@
 package com.eta.controllers;
 
-import com.eta.exceptions.ApplicationError;
+import com.eta.dto.ApplicationError;
 import com.eta.exceptions.EtAuthException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

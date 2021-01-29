@@ -1,4 +1,4 @@
-package com.eta.exceptions;
+package com.eta.dto;
 
 public class ApplicationError {
 
@@ -6,10 +6,7 @@ public class ApplicationError {
     private String message;
     private String details;
 
-    public Integer getCode() {
-        return code;
-    }
-
+    public Integer getCode() { return code; }
     public void setCode(Integer code) {
         this.code = code;
     }
@@ -17,7 +14,6 @@ public class ApplicationError {
     public String getMessage() {
         return message;
     }
-
     public void setMessage(String message) {
         this.message = message;
     }
@@ -25,7 +21,6 @@ public class ApplicationError {
     public String getDetails() {
         return details;
     }
-
     public void setDetails(String details) {
         this.details = details;
     }
