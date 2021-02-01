@@ -79,11 +79,11 @@ public class UserRepositoryImplementation implements UserRepository {
         return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, userRowMapper, userId);
     }
 
-    private RowMapper<User> userRowMapper = ((rs, rowNum) -> {
-        return new User(rs.getInt("USER_ID"),
-                rs.getString("FIRST_NAME"),
-                rs.getString("LAST_NAME"),
-                rs.getString("EMAIL"),
-                rs.getString("PASSWORD"));
+    private final RowMapper<User> userRowMapper = ((resultSet, rowNum) -> {
+        return new User(resultSet.getInt("user_id"),
+                resultSet.getString("first_name"),
+                resultSet.getString("last_name"),
+                resultSet.getString("email"),
+                resultSet.getString("password"));
     });
 }

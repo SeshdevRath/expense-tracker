@@ -17,18 +17,11 @@ public class UserServiceImplementation implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User validateUser(String email, String password) throws EtAuthException {
-        if (email != null) { email = email.toLowerCase(); }
-        User user = userRepository.findByEmailAndPassword(email, password);
-        return user;
-    }
-
-    @Override
     public User registerUser(String firstName, String lastName, String email, String password) throws EtAuthException {
-        Pattern emialPattern = Pattern.compile("^(.+)@(.+)$");
+        Pattern emailPattern = Pattern.compile("^(.+)@(.+)$");
 
         if (email != null) { email = email.toLowerCase(); }
-        if (!emialPattern.matcher(email).matches()) { throw  new EtAuthException("Invalid email.");}
+        if (!emailPattern.matcher(email).matches()) { throw  new EtAuthException("Invalid email.");}
 
         Integer emailCount = userRepository.getCountByEmail(email);
         if (emailCount > 0) { throw new EtAuthException("Email already in use"); }
@@ -36,5 +29,12 @@ public class UserServiceImplementation implements UserService {
         Integer userId = userRepository.create(firstName, lastName, email, password);
 
         return userRepository.findById(userId);
+    }
+
+    @Override
+    public User validateUser(String email, String password) throws EtAuthException {
+        if (email != null) { email = email.toLowerCase(); }
+        User user = userRepository.findByEmailAndPassword(email, password);
+        return user;
     }
 }

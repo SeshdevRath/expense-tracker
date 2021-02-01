@@ -83,11 +83,11 @@ public class CategoryRepositoryImplementation implements CategoryRepository {
 
     }
 
-    private RowMapper<Category> categoryRowMapper = ((rs, rowNum) -> {
-        return new Category(rs.getInt("category_id"),
-                rs.getInt("user_id"),
-                rs.getString("title"),
-                rs.getString("description"),
-                rs.getDouble("total_expense"));
+    private final RowMapper<Category> categoryRowMapper = ((resultSet, rowNum) -> {
+        return new Category(resultSet.getInt("category_id"),
+                resultSet.getInt("user_id"),
+                resultSet.getString("title"),
+                resultSet.getString("description"),
+                resultSet.getDouble("total_expense"));
     });
 }
