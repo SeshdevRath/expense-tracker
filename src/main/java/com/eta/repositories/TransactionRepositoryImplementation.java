@@ -27,6 +27,8 @@ public class TransactionRepositoryImplementation implements TransactionRepositor
     private static final String SQL_UPDATE     = "UPDATE et_transactions SET amount = ?, note = ?, transaction_date = ? " +
                                                  "WHERE user_id = ? AND category_id = ? AND transaction_id = ?";
 
+    private static final String SQL_DELETE    = "DELETE FROM et_transactions WHERE user_id = ? AND category_id = ? AND transaction_id = ?";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -80,7 +82,14 @@ public class TransactionRepositoryImplementation implements TransactionRepositor
 
     @Override
     public void removeById(Integer userId, Integer categoryId, Integer transactionId) {
-
+        try {
+            Integer count = jdbcTemplate.update(SQL_DELETE, userId, categoryId, transactionId);
+            if (count == 0) {
+                throw new EtResourceNotFoundException("Transaction not found");
+            }
+        } catch (Exception e) {
+            throw new EtResourceNotFoundException("Transaction not found");
+        }
     }
 
     private final RowMapper<Transaction> transactionRowMapper = ((resultSet, rowNum) -> {

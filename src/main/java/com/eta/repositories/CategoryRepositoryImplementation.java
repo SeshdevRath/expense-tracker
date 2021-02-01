@@ -17,20 +17,23 @@ import java.util.List;
 @Repository
 public class CategoryRepositoryImplementation implements CategoryRepository {
 
-    private static final String SQL_CREATE     = "INSERT INTO et_categories(category_id, user_id, title, description) " +
-                                                 "VALUES(NEXTVAL('et_categories_seq'), ?, ?, ?)";
+    private static final String SQL_CREATE                  = "INSERT INTO et_categories(category_id, user_id, title, description) " +
+                                                              "VALUES(NEXTVAL('et_categories_seq'), ?, ?, ?)";
 
-    private static final String SQL_FIND_BY_ID = "SELECT c.category_id, c.user_id, c.title, c.description, " +
-                                                 "COALESCE(SUM(t.amount), 0) total_expense " +
-                                                 "FROM et_transactions t RIGHT OUTER JOIN et_categories c ON c.category_id = t.category_id " +
-                                                 "WHERE c.user_id = ? AND c.category_id = ? GROUP BY c.category_id";
+    private static final String SQL_FIND_BY_ID              = "SELECT c.category_id, c.user_id, c.title, c.description, " +
+                                                              "COALESCE(SUM(t.amount), 0) total_expense " +
+                                                              "FROM et_transactions t RIGHT OUTER JOIN et_categories c ON c.category_id = t.category_id " +
+                                                              "WHERE c.user_id = ? AND c.category_id = ? GROUP BY c.category_id";
 
-    private static final String SQL_FIND_ALL   = "SELECT c.category_id, c.user_id, c.title, c.description, " +
-                                                 "COALESCE(SUM(t.amount), 0) total_expense " +
-                                                 "FROM et_transactions t RIGHT OUTER JOIN et_categories c ON c.category_id = t.category_id " +
-                                                 "WHERE c.user_id = ? GROUP BY c.category_id";
+    private static final String SQL_FIND_ALL                = "SELECT c.category_id, c.user_id, c.title, c.description, " +
+                                                              "COALESCE(SUM(t.amount), 0) total_expense " +
+                                                              "FROM et_transactions t RIGHT OUTER JOIN et_categories c ON c.category_id = t.category_id " +
+                                                              "WHERE c.user_id = ? GROUP BY c.category_id";
 
-    private static final String SQL_UPDATE     = "UPDATE et_categories SET title = ?, description = ? WHERE user_id = ? AND category_id = ?";
+    private static final String SQL_UPDATE                  = "UPDATE et_categories SET title = ?, description = ? WHERE user_id = ? AND category_id = ?";
+
+    private static final String SQL_DELETE_CATEGORY         = "DELETE FROM et_categories WHERE user_id = ? AND category_id = ?";
+    private static final String SQL_DELETE_ALL_TRANSACTIONS = "DELETE FROM et_transactions WHERE category_id = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -83,7 +86,16 @@ public class CategoryRepositoryImplementation implements CategoryRepository {
 
     @Override
     public void removeById(Integer userId, Integer categoryId) {
+        try {
+            this.removeAllTransactions(categoryId);
+            jdbcTemplate.update(SQL_DELETE_CATEGORY, userId, categoryId);
+        } catch (Exception e) {
+            throw new EtResourceNotFoundException("Category not found");
+        }
+    }
 
+    private void removeAllTransactions(Integer categoryId) {
+        jdbcTemplate.update(SQL_DELETE_ALL_TRANSACTIONS, categoryId);
     }
 
     private final RowMapper<Category> categoryRowMapper = ((resultSet, rowNum) -> {
