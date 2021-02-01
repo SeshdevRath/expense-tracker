@@ -17,17 +17,20 @@ import java.util.List;
 @Repository
 public class CategoryRepositoryImplementation implements CategoryRepository {
 
-    private static final String SQL_CREATE = "INSERT INTO et_categories(category_id, user_id, title, description) " +
-            "                                             VALUES(NEXTVAL('et_categories_seq'), ?, ?, ?)";
+    private static final String SQL_CREATE     = "INSERT INTO et_categories(category_id, user_id, title, description) " +
+                                                 "VALUES(NEXTVAL('et_categories_seq'), ?, ?, ?)";
+
     private static final String SQL_FIND_BY_ID = "SELECT c.category_id, c.user_id, c.title, c.description, " +
                                                  "COALESCE(SUM(t.amount), 0) total_expense " +
                                                  "FROM et_transactions t RIGHT OUTER JOIN et_categories c ON c.category_id = t.category_id " +
                                                  "WHERE c.user_id = ? AND c.category_id = ? GROUP BY c.category_id";
-    private static final String SQL_FIND_ALL = "SELECT c.category_id, c.user_id, c.title, c.description, " +
-                                                "COALESCE(SUM(t.amount), 0) total_expense " +
-                                                "FROM et_transactions t RIGHT OUTER JOIN et_categories c ON c.category_id = t.category_id " +
-                                                "WHERE c.user_id = ? GROUP BY c.category_id";
-    private static final String SQL_UPDATE = "UPDATE et_categories SET title = ?, description = ? WHERE user_id = ? AND category_id = ?";
+
+    private static final String SQL_FIND_ALL   = "SELECT c.category_id, c.user_id, c.title, c.description, " +
+                                                 "COALESCE(SUM(t.amount), 0) total_expense " +
+                                                 "FROM et_transactions t RIGHT OUTER JOIN et_categories c ON c.category_id = t.category_id " +
+                                                 "WHERE c.user_id = ? GROUP BY c.category_id";
+
+    private static final String SQL_UPDATE     = "UPDATE et_categories SET title = ?, description = ? WHERE user_id = ? AND category_id = ?";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

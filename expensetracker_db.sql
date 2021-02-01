@@ -24,7 +24,7 @@ create table et_categories(
 alter table et_categories add constraint cat_users_fk
 foreign key (user_id) references et_users(user_id);
 
-create table et_transactions(
+create table et_transactions (
     transaction_id integer primary key not null,
     category_id integer not null,
     user_id integer not null,

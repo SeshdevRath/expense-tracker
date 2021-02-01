@@ -5,7 +5,6 @@ import com.eta.exceptions.EtAuthException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -18,13 +17,15 @@ import java.sql.Statement;
 @Repository
 public class UserRepositoryImplementation implements UserRepository {
 
-    private static final String SQL_CREATE = "INSERT INTO et_users(user_id, first_name, last_name, email, password) " +
-                                                          "VALUES(NEXTVAL('ET_USERS_SEQ'), ?, ?, ?, ?)";
+    private static final String SQL_CREATE                     = "INSERT INTO et_users(user_id, first_name, last_name, email, password) " +
+                                                                 "VALUES(NEXTVAL('ET_USERS_SEQ'), ?, ?, ?, ?)";
+
     private static final String SQL_FIND_BY_EMAIL_AND_PASSWORD = "SELECT user_id, first_name, last_name, email, password FROM et_users " +
                                                                  "WHERE email = ? AND password = ?";
-    private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM et_users WHERE email = ?";
-    private static final String SQL_FIND_BY_ID = "SELECT user_id, first_name, last_name, email, password FROM et_users WHERE user_id = ?";
-    private static final String SQL_FIND_BY_EMAIL = "SELECT user_id, first_name, last_name, email, password FROM et_users WHERE email = ?";
+
+    private static final String SQL_COUNT_BY_EMAIL             = "SELECT COUNT(*) FROM et_users WHERE email = ?";
+    private static final String SQL_FIND_BY_ID                 = "SELECT user_id, first_name, last_name, email, password FROM et_users WHERE user_id = ?";
+    private static final String SQL_FIND_BY_EMAIL              = "SELECT user_id, first_name, last_name, email, password FROM et_users WHERE email = ?";
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -57,7 +58,6 @@ public class UserRepositoryImplementation implements UserRepository {
 //            if(!password.equals(user.getPassword())) {
 //                throw  new EtAuthException("Invalid email/password");
 //            }
-
 //            After encrypting password, it needs to be decrypted the below way
             assert user != null;
             if (!BCrypt.checkpw(password, user.getPassword())) {
