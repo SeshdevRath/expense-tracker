@@ -32,11 +32,7 @@ public class UserResourceController {
         String password = (String) usrMap.get("password");
 
         User user = userService.registerUser(firstName, lastName, email, password);
-//        Map<String, String> responseMap = new HashMap<>();
-//        responseMap.put("message", "Registered successfully");
         return new ResponseEntity<>(generateJWTToken(user), HttpStatus.OK);
-
-//        return firstName + ", " + lastName + ", " + email + ", " + password;
     }
 
     @PostMapping("/login")
@@ -45,9 +41,6 @@ public class UserResourceController {
         String password = (String) userMap.get("password");
 
         User user = userService.validateUser(email, password);
-//        Map<String, String> responseMap = new HashMap<>();
-//        responseMap.put("message", "Logged in successfully");
-
         return new ResponseEntity<>(generateJWTToken(user), HttpStatus.OK);
     }
 
