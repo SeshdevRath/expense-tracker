@@ -21,8 +21,8 @@ public class ExpenseTrackerApplication {
 		FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>();
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.addAllowedOrigin("http://localhost:5500");// For particular url
-		corsConfiguration.addAllowedOrigin("*");//For all
+		corsConfiguration.addAllowedOrigin("http://localhost:5500"); // For particular url
+		corsConfiguration.addAllowedOrigin("*"); // For all
 		corsConfiguration.addAllowedHeader("*");
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		registrationBean.setFilter(new CorsFilter(source));
