@@ -2,11 +2,11 @@
 
 REQUIREMENTS 
 ============
-Java
-Intellij IDEA (Any IDE)
-Postman
-PostgreSQL
-PostgresDocker
+Java,
+Intellij IDEA (Any IDE),
+Postman,
+PostgreSQL,
+PostgresDocker,
 
 
 DOCKER
@@ -17,6 +17,7 @@ DOCKER
 	docker pull postgres
 
 -> Run DB
+
 	docker container run --name postgresdb -e POSTGRES_PASSWORD=admin -d -p 5432:5432 postgres
 	docker container ls
 
