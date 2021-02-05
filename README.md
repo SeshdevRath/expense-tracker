@@ -2,11 +2,15 @@
 
 REQUIREMENTS 
 ============
-Java,
-Intellij IDEA (Any IDE),
-Postman,
-PostgreSQL,
-PostgresDocker,
+Java
+
+Intellij IDEA (Any IDE)
+
+Postman
+
+PostgreSQL
+
+PostgresDocker
 
 
 DOCKER
